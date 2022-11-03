@@ -1,6 +1,8 @@
 # Pranala Resources CLI and Wrapper
 Pranala Resource is a library with build-in CLI application that users will can interact. Based on Python 3.8+.
 
+Typer is used to build CLI application. 
+
 List of commands:
 - add-records: Create a new record and there will be prompt to input the data
 - delete-records: Update a record based on condition with the values of condition and set-value.
