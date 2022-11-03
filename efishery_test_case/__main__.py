@@ -48,12 +48,9 @@ class Pranala:  # noqa
         get all by harga, size and tanggal
         """
         params = dict()
-        if harga:
-            params['harga'] = format_numbers_only(harga)
-        if size:
-            params['size'] = format_numbers_only(str(size))
-        if tanggal:
-            params['tgl_parsed'] = validate_tanggal(tanggal)
+        params['harga'] = format_numbers_only(harga)
+        params['size'] = format_numbers_only(str(size))
+        params['tgl_parsed'] = validate_tanggal(tanggal)
         return Pranala.get(params)
 
     @staticmethod
@@ -61,12 +58,9 @@ class Pranala:  # noqa
     def get_all_by_commodity(komoditas: str = typer.Option(..., prompt=True)):
         """
         get all by commodity
-        :param komoditas:
-        :return:
         """
         params = dict()
-        if komoditas:
-            params['komoditas'] = str(komoditas).upper()
+        params['komoditas'] = str(komoditas).upper()
         return Pranala.get(params)
 
     @staticmethod
@@ -76,8 +70,7 @@ class Pranala:  # noqa
         get by uuid
         """
         params = dict()
-        if uuid:
-            params['uuid'] = str(uuid)
+        params['uuid'] = str(uuid)
         return Pranala.get(params)
 
     @staticmethod
@@ -85,8 +78,6 @@ class Pranala:  # noqa
     def get_by_area_provinsi(provinsi: str = typer.Option(..., prompt=True)):
         """
         get by area provinsi
-        :param provinsi:
-        :return:
         """
         params = dict()
         if provinsi:
@@ -100,8 +91,7 @@ class Pranala:  # noqa
         get by area kota
         """
         params = dict()
-        if kota:
-            params['area_kota'] = str(kota).upper()
+        params['area_kota'] = str(kota).upper()
         return Pranala.get(params)
 
     @staticmethod
@@ -111,15 +101,14 @@ class Pranala:  # noqa
         get max price by commodity
         """
         params = dict()
-        if komoditas:
-            params['komoditas'] = str(komoditas).upper()
+        params['komoditas'] = str(komoditas).upper()
         return Pranala.get(params, 'get_max_price')
 
     @staticmethod
     @app.command()
     def get_most_records(by: str = typer.Option(..., prompt=True)):
         """
-        get most records by commodity
+        get most records by commodity column
         """
         return Pranala.get(context='get_most_records', c_value=by)
 
@@ -127,7 +116,7 @@ class Pranala:  # noqa
     @app.command()
     def get_aggregation_price(by: str = typer.Option(..., prompt=True)):
         """
-        get most records by commodity
+        get aggregation price by the specified column
         """
         return Pranala.get(context='get_aggregation_price', c_value=by)
 
