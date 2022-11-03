@@ -27,7 +27,8 @@ def get_response(res, context=None, c_value=None):
             c = CurrencyConverter()
             rows = []
             for x in dataset:
-                x['price_in_usd'] = (c.convert(x.get('price'), 'IDR', 'USD'))
+                if context != 'get_most_records':
+                    x['price_in_usd'] = (c.convert(x.get('price'), 'IDR', 'USD'))
                 rows.append(x.values())
             header = dataset[0].keys()
             print(tabulate(rows, header))
