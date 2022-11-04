@@ -1,21 +1,36 @@
+<p align="center">
+  <a href="https://github.com/prostiate/pranala_resource"><img src="https://lh6.googleusercontent.com/HNsxNXfQ5doC4JlsSxgn_jYA_PDn5dDKfd_lEb_bFCGTWfs0lfDchdRy0iIfmIcghxHa9JbAVH8N9dnLdDIkOkpZ7EoLEq0-cUKB1X-TfIt4wWOKwup9RfTmLcm7vOEfpQTWNqQG" alt="Pranala"></a>
+</p>
+<p align="center">
+    <em>Pranala Resource is a library with build-in CLI application that users will can interact.</em>
+</p>
+<p align="center">
+<a href="https://github.com/tiangolo/typer/actions?query=workflow%3ATest" target="_blank">
+    <img src="https://github.com/tiangolo/typer/workflows/Test/badge.svg" alt="Test">
+</a>
+</p>
+
+---
 # Pranala Resources CLI and Wrapper
 Pranala Resource is a library with build-in CLI application that users will can interact. Based on Python 3.8+.
 
 Typer is used to build CLI application. 
 
 List of commands:
-- add-records: Create a new record and there will be prompt to input the data
-- delete-records: Update a record based on condition with the values of condition and set-value.
-- get-aggregation-price: get aggregation price by the specified column
-- get-all-by-commodity: get all data by commodity column
-- get-all-by-range: get all data by harga, size and tanggal
-- get-by-area-kota: get by area kota
-- get-by-area-provinsi: get data by area provinsi
-- get-by-id: get by uuid
-- get-by-range-price: get by range price
-- get-max-price: get max price by commodity
-- get-most-records: get most records by commodity
-- update-records: Update records with condition and value.
+```commandline
+Commands:
+  add-records            Add a record
+  delete-records         Update records with condition and value.
+  get-aggregation-price  get aggregation price by the specified column
+  get-all-by-commodity   get by commodity
+  get-all-by-range       get all by range harga, size and tanggal
+  get-by-area            get by area province and city
+  get-by-id              get by uuid
+  get-by-range-price     get by range price
+  get-max-price          get max price by week and commodity
+  get-most-records       get most records by commodity
+  update-records         Update records with condition and value.
+```
 
 ## Structure Project
 ```
@@ -54,50 +69,49 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  add-records            This command to add a record, and it will ask...
+  add-records            Add a record
   delete-records         Update records with condition and value.
   get-aggregation-price  get aggregation price by the specified column
-  get-all-by-commodity   get all by commodity
-  get-all-by-range       get all by harga, size and tanggal
-  get-by-area-kota       get by area kota
-  get-by-area-provinsi   get by area provinsi
+  get-all-by-commodity   get by commodity
+  get-all-by-range       get all by range harga, size and tanggal
+  get-by-area            get by area province and city
   get-by-id              get by uuid
   get-by-range-price     get by range price
-  get-max-price          get max price by commodity
-  get-most-records       get most records by commodity column
+  get-max-price          get max price by week and commodity
+  get-most-records       get most records by commodity
   update-records         Update records with condition and value.
 ```
 
 ### Add a record
 You can add a record using `add-records` and then it will show prompt. You can use `--help` arguments to see requirements input.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala add-records --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala add-records --help
 Usage: main.py pranala add-records [OPTIONS]
 
-  This command to add a record, and it will ask you to input required data
+  Add a record
 
 Options:
-  --komoditas TEXT      [required]
-  --area-provinsi TEXT  [required]
-  --area-kota TEXT      [required]
-  --size INTEGER        [required]
-  --price INTEGER       [required]
-  --help                Show this message and exit.
+  --commodity TEXT  [required]
+  --province TEXT   [required]
+  --city TEXT       [required]
+  --size TEXT       [required]
+  --price TEXT      [required]
+  --help            Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala add-records
-Komoditas: GURAME
-Area provinsi: JAWA BARAT
-Area kota: BANDUNG
-Size: 100
-Price: 50000
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala add-records
+Commodity: gurame
+Province: jawa tengah
+City: cilacap
+Size: 30
+Price: 30000
 data successfully created
 ```
 
 ### Update a record
 You can update a record using `update-records` and you need to use `--condition condition1=value1,condition2=value2 --set-value column1=value1,column2=value2` in order to update the data.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala update-records --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala update-records --help
 Usage: main.py pranala update-records [OPTIONS]
 
   Update records with condition and value. Example: --condition
@@ -110,9 +124,9 @@ Options:
   --help            Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala update-records --condition uuid=2c75f19f-ac7a-4c28-9459-8fbb64c8cb00 --set-value komoditas=GURAME
-condition:  {'uuid': '2c75f19f-ac7a-4c28-9459-8fbb64c8cb00'}
-set_value:  {'komoditas': 'GURAME'}
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala update-records --condition uuid=13806864-4557-42d4-926c-050e4d54d671 --set-value size=170
+condition:  {'uuid': '13806864-4557-42d4-926c-050e4d54d671'}
+set_value:  {'size': '170'}
 date successfully updated
 ```
 
@@ -173,107 +187,91 @@ PATIN        1000  98000
 ### Get All Data Based On Specified Commodity
 You can get all data based on specified commodity using `get-all-by-commodity` and it will show a prompt to user to input the value of commodity.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-all-by-commodity --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-commodity --help
 Usage: main.py pranala get-all-by-commodity [OPTIONS]
 
-  get all by commodity
+  get by commodity
 
 Options:
   --komoditas TEXT  [required]
   --help            Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-all-by-commodity
-Komoditas: GURAME
-uuid                                  komoditas    area_provinsi     area_kota          size    price  tgl_parsed                timestamp    price_in_usd
-------------------------------------  -----------  ----------------  ---------------  ------  -------  --------------------  -------------  --------------
-2c75f19f-ac7a-4c28-9459-8fbb64c8cb00  GURAME       JAWA TENGAH       PURWOREJOL           40    55000  2022-01-01T13:11:46Z  1641042706799        3.58106
-b175e2c0-a97e-4cf4-b16f-ab8f59c1a429  GURAME       KALIMANTAN TIMUR  BORNEO               30    87000  2022-01-01T23:34:16Z  1641080056368        5.66459
-7ffda1e2-163d-4430-a661-5c29b1eac424  GURAME       JAWA TENGAH       PURWOREJO           110     3000  2022-01-02T01:33:44Z  1641087224309        0.195331
-9210ca57-b15f-431f-9135-67126dd7c6f0  GURAME       JAWA TIMUR        BANYUWANGI          130    73000  2022-02-02T16:25:38Z  1643819138296        4.75304
-6c8bfe30-ded7-4b6b-bdaf-1b5f3ea33cbd  GURAME       JAWA BARAT        CIMAHI              200    96000  2022-02-10T00:38:55Z  1644453535618        6.25058
-eb353254-49cb-49a2-900e-43da80cfa2f7  GURAME       JAWA TENGAH       PURWOREJOR          110    57000  2022-02-10T08:44:37Z  1644482677674        3.71128
-c7b0d94c-553d-49c7-91d1-6ffbb59b872a  GURAME       JAWA TIMUR        PROBOLINGGO          60    38000  2022-02-12T08:48:20Z  1644655700611        2.47419
-6f57732f-9a26-4e0e-8152-abacba6c5cdd  GURAME       JAWA TENGAH       TEGAL               160    69000  2022-02-18T05:50:20Z  1645163420277        4.4926
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-commodity
+Komoditas: gurame
+uuid                                  komoditas    area_provinsi     area_kota      size    price  tgl_parsed                timestamp    no    price_in_usd
+------------------------------------  -----------  ----------------  -----------  ------  -------  --------------------  -------------  ----  --------------
+2c75f19f-ac7a-4c28-9459-8fbb64c8cb00  GURAME       JAWA TENGAH       PURWOREJOL       40    55000  2022-01-01T13:11:46Z  1641042706799     1        3.58106
+b175e2c0-a97e-4cf4-b16f-ab8f59c1a429  GURAME       KALIMANTAN TIMUR  BORNEO           30    87000  2022-01-01T23:34:16Z  1641080056368     2        5.66459
+7ffda1e2-163d-4430-a661-5c29b1eac424  GURAME       JAWA TENGAH       PURWOREJO       110     3000  2022-01-02T01:33:44Z  1641087224309     3        0.195331
+c4f6ed2f-a4a3-4773-b712-e514f4182be9  GURAME                                         120    90000  2022-01-16T06:22:46Z  1642314166739     4        5.85992
+78de9a12-cac7-410d-abb5-d40874bfd881  GURAME       JAWA TENGAH       PURWOREJOR      110    85000  2022-01-29T02:15:49Z  1643422549714     5        5.53436
+9210ca57-b15f-431f-9135-67126dd7c6f0  GURAME       JAWA TIMUR        BANYUWANGI      130    73000  2022-02-02T16:25:38Z  1643819138296     6        4.75304
+6c8bfe30-ded7-4b6b-bdaf-1b5f3ea33cbd  GURAME       JAWA BARAT        CIMAHI          200    96000  2022-02-10T00:38:55Z  1644453535618     7        6.25058
+eb353254-49cb-49a2-900e-43da80cfa2f7  GURAME       JAWA TENGAH       PURWOREJOR      110    57000  2022-02-10T08:44:37Z  1644482677674     8        3.71128
+c7b0d94c-553d-49c7-91d1-6ffbb59b872a  GURAME       JAWA TIMUR        PROBOLINGGO      60    38000  2022-02-12T08:48:20Z  1644655700611     9        2.47419
+6f57732f-9a26-4e0e-8152-abacba6c5cdd  GURAME       JAWA TENGAH       TEGAL           160    69000  2022-02-18T05:50:20Z  1645163420277    10        4.4926
 ```
 
-### Get All Data Based On Specified Price, Size And Date
-You can get all data based on specified price, size and date using `get-all-by-range` and it will show a prompt to user to input the price, size and date.
+### Get All Data Based On Specified Range Price, Size And Date
+You can get all data based on specified range of price, size and date using `get-all-by-range` and it will show a prompt to user to input the range of price, size and date.
+
+All data must be present and must follow the given format
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-all-by-range --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-range --help
 Usage: main.py pranala get-all-by-range [OPTIONS]
 
-  get all by harga, size and tanggal
+  get all by range harga, size and tanggal
 
 Options:
-  --harga TEXT    [required]
-  --size TEXT     [required]
-  --tanggal TEXT  [required]
-  --help          Show this message and exit.
+  --range-harga TEXT    [required]
+  --range-size TEXT     [required]
+  --range-tanggal TEXT  [required]
+  --help                Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-all-by-commodity
-Harga: 55000
-Size: 10
-Tanggal: 2022-01-01
-uuid                                  komoditas    area_provinsi     area_kota          size    price  tgl_parsed                timestamp    price_in_usd
-------------------------------------  -----------  ----------------  ---------------  ------  -------  --------------------  -------------  --------------
-2c75f19f-ac7a-4c28-9459-8fbb64c8cb00  GURAME       JAWA TENGAH       PURWOREJOL           10    55000  2022-01-01T13:11:46Z  1641042706799        3.58106
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-range
+Please input range price (from,to). Ex. 2000,5000: 2,50000
+Please input range size based on option size (from,to). Ex. 30,50: 30,170
+Please input range date yyyy-mm-dd (from,to). Ex. 2020-11-02,2022-11-02: 2020-11-02,2022-11-02
+                                     uuid komoditas area_provinsi  area_kota size  price  tgl_parsed      timestamp
+185  7d53954e-45a5-4a45-9e5c-1660e7847f09    GURAME          ACEH  ACEH KOTA  170  50000  2022-05-09  1652101460443
 ```
 
-### Get Data Based On Specified Area Kota
-You can get data based on specified area kota using `get-by-area-kota` and it will show a prompt to user to input the kota name.
+### Get Data Based On Specified Area
+You can get data based on specified area province and city using `get-by-area` and it will show a prompt to user to input the province and city.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-by-area-kota --help
-Usage: main.py pranala get-by-area-kota [OPTIONS]
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-area --help
+Usage: main.py pranala get-by-area [OPTIONS]
 
-  get by area kota
+  get by area province and city
 
 Options:
-  --kota TEXT  [required]
-  --help       Show this message and exit.
-```
-```commandline
-(py8) PS C:\case> python .\main.py pranala get-by-area-kota
-Kota: BANDUNG
-uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    price_in_usd
-------------------------------------  -----------  ---------------  -----------  ------  -------  --------------------  -------------  --------------
-f34724d0-82e8-4e2c-96ac-e67d89c2d98f  NILA HITAM   JAWA BARAT       BANDUNG          90    50000  2022-01-27T11:33:17Z  1643283197156         3.25551
-c2418c63-9b9f-4575-a55d-03087fabb49a  LELE         JAWA BARAT       BANDUNG          50    79000  2022-03-24T09:20:10Z  1648113610478         5.1437
-2ac035bc-69ca-4d80-be1f-398f5a2ba29a  NILA MERAH   JAWA BARAT       BANDUNG         140    62000  2022-05-13T02:48:45Z  1652410125334         4.03683
-85306e0c-12da-45e0-99d9-149a4ba432b8  GURAME       JAWA BARAT       BANDUNG          50    35000  2022-05-28T04:45:25Z  1653713125390         2.27886
-```
-
-### Get Data Based On Specified Area Provinsi
-You can get data based on specified area provinsi using `get-by-area-provinsi` and it will show a prompt to user to input the provinsi name.
-```commandline
-(py8) PS C:\case> python .\main.py pranala get-by-area-provinsi --help
-Usage: main.py pranala get-by-area-provinsi [OPTIONS]
-
-  get by area provinsi
-
-Options:
-  --provinsi TEXT  [required]
+  --province TEXT  [required]
+  --city TEXT      [required]
   --help           Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-by-area-provinsi
-Provinsi: JAWA TENGAH
-uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    price_in_usd
-------------------------------------  -----------  ---------------  -----------  ------  -------  --------------------  -------------  --------------
-2c75f19f-ac7a-4c28-9459-8fbb64c8cb00  GURAME       JAWA TENGAH      PURWOREJOL       40    55000  2022-01-01T13:11:46Z  1641042706799       3.58106
-7ffda1e2-163d-4430-a661-5c29b1eac424  GURAME       JAWA TENGAH      PURWOREJO       110     3000  2022-01-02T01:33:44Z  1641087224309       0.195331
-1f9a1f94-bf3f-4e9d-b13f-d5f83bc1ef7e  NILA HITAM   JAWA TENGAH      TEGAL           150    59000  2022-01-04T15:33:43Z  1641310423170       3.8415
-ae0d90d6-26ea-4047-a605-9ce36c302f09  NILA MERAH   JAWA TENGAH      PURWOREJO       100    28000  2022-01-07T13:23:45Z  1641561825476       1.82308
-c10dbca7-1e90-4255-8294-06ff2a13509d  BANDENG      JAWA TENGAH      PURWOREJO       100    91000  2022-01-07T16:16:37Z  1641572197343       5.92503
-92228d24-e61f-4abc-a5d3-3f0d17db5820  MAS          JAWA TENGAH      PURWOREJO       180    14000  2022-01-11T16:35:03Z  1641918903712       0.911542
-54d6a2fa-8c03-4459-b45c-47fa58fb0934  MAS          JAWA TENGAH      PURWOREJO        30    61000  2022-01-16T17:42:15Z  1642354935189       3.97172
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-area
+Province: jawa tengah
+City: cilacap
+uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    no    price_in_usd
+------------------------------------  -----------  ---------------  -----------  ------  -------  --------------------  -------------  ----  --------------
+03152e70-9c60-4cd7-94ea-e0b71b260bb6  BAWAL        JAWA TENGAH      CILACAP         150    70000  2022-01-28T17:50:58Z  1643392258877     1         4.55771
+34fd07a0-1e9a-43c2-872e-85ba67735198  NILA MERAH   JAWA TENGAH      CILACAP         170    96000  2022-02-16T11:49:14Z  1645012154189     2         6.25058
+2d812e68-b96a-496f-92df-7a7c363766aa  PATIN        JAWA TENGAH      CILACAP         110    29000  2022-03-07T09:40:52Z  1646646052408     3         1.8882
+f9f653e0-23c8-40c0-b852-9553b441c900  PATIN        JAWA TENGAH      CILACAP          20    95000  2022-03-11T15:05:01Z  1647011101686     4         6.18547
+275eccdf-e60e-4693-8e20-727beb8faa4d  LELE         JAWA TENGAH      CILACAP          20    83000  2022-03-22T18:17:27Z  1647973047984     5         5.40414
+5c58a120-cb23-492a-b38f-76d80f48c62d  LELE         JAWA TENGAH      CILACAP         150    41000  2022-03-25T09:07:37Z  1648199257904     6         2.66952
+6ef89150-3ebe-40d9-90f5-1c89dd501cb0  NILA HITAM   JAWA TENGAH      CILACAP          60    81000  2022-04-22T09:05:18Z  1650618318846     7         5.27392
+f2012153-75ef-48e5-b40d-b60762771e4b  BAWAL        JAWA TENGAH      CILACAP          20    44000  2022-11-04T15:33:19Z  1667550799938     8         2.86485
+79877fd3-1aa7-4b19-ad51-8246a3338b1f  BAWAL        JAWA TENGAH      CILACAP          30    46000  2022-11-04T15:34:24Z  1667550864542     9         2.99507
 ```
 
 ### Get Data Based On Specified Id
 You can get data based on specified id using `get-by-id` and it will show a prompt to user to input the id.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-by-id --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-id --help
 Usage: main.py pranala get-by-id [OPTIONS]
 
   get by uuid
@@ -283,11 +281,11 @@ Options:
   --help       Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-by-id
-Uuid: 54d6a2fa-8c03-4459-b45c-47fa58fb0934
-uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    price_in_usd
-------------------------------------  -----------  ---------------  -----------  ------  -------  --------------------  -------------  --------------
-54d6a2fa-8c03-4459-b45c-47fa58fb0934  MAS          JAWA TENGAH      PURWOREJO        30    61000  2022-01-16T17:42:15Z  1642354935189         3.97172
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-id
+Uuid: 2c75f19f-ac7a-4c28-9459-8fbb64c8cb00
+uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    no    price_in_usd
+------------------------------------  -----------  ---------------  -----------  ------  -------  --------------------  -------------  ----  --------------
+2c75f19f-ac7a-4c28-9459-8fbb64c8cb00  GURAME       JAWA TENGAH      PURWOREJOL       40    55000  2022-01-01T13:11:46Z  1641042706799     1         3.58106
 ```
 
 ### Get Data Based On Specified Range Price
@@ -319,79 +317,86 @@ bf766e07-b9d5-44d2-bede-c3ad13a9e246  BAWAL        BANTEN            PANDEGLANG 
 625b4673-8795-4b6c-84b5-9e8dcad83485  MAS          JAWA TENGAH       PURWOREJOL      150     1000  2022-03-05T05:26:18Z  1646457978287       0.0651102
 ```
 
-### Get Max Price Data Based On Commodity Column Value
-You can get max price data based on specified column commodity value using `get-max-price` and it will show a prompt to user to input the commodity value.
+### Get Max Price Data By Week And By Commodity
+You can get max price data using `get-max-price` and it will show data filtered based by week and get the max price of each weeks.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-max-price --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-max-price --help
 Usage: main.py pranala get-max-price [OPTIONS]
 
-  get max price by commodity
+  get max price by week and commodity
 
 Options:
-  --komoditas TEXT  [required]
-  --help            Show this message and exit.
+  --help  Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-max-price
-Komoditas: GURAME
-uuid                                  komoditas    area_provinsi     area_kota          size    price  tgl_parsed                timestamp    price_in_usd
-------------------------------------  -----------  ----------------  ---------------  ------  -------  --------------------  -------------  --------------
-6c8bfe30-ded7-4b6b-bdaf-1b5f3ea33cbd  GURAME       JAWA BARAT        CIMAHI              200    96000  2022-02-10T00:38:55Z  1644453535618        6.25058
-c4f6ed2f-a4a3-4773-b712-e514f4182be9  GURAME                                             120    90000  2022-01-16T06:22:46Z  1642314166739        5.85992
-5379e93e-68c7-408e-b11b-8aa32c33376d  GURAME       JAWA TIMUR        SITUBONDO           100    89000  2022-05-09T22:07:55Z  1652134075533        5.79481
-1e271943-ff69-4f18-b94c-0de4b979e78c  GURAME       JAWA TIMUR        BANYUWANGI          180    88000  2022-05-05T23:39:58Z  1651793998375        5.7297
-b175e2c0-a97e-4cf4-b16f-ab8f59c1a429  GURAME       KALIMANTAN TIMUR  BORNEO               30    87000  2022-01-01T23:34:16Z  1641080056368        5.66459
-76291afa-e1f5-4244-b7fb-bd6fcf3b8f1a  GURAME       JAWA TIMUR        SITUBONDO           180    87000  2022-02-28T01:03:37Z  1646010217928        5.66459
-8e14a80b-05b4-4833-8870-32022c97bc07  GURAME       ACEH              ACEH KOTA           140    86000  2022-03-17T10:46:44Z  1647514004186        5.59948
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-max-price
+                                     price
+komoditas tgl_parsed
+BANDENG   2022-01-03 00:00:00+00:00  91000
+          2022-01-17 00:00:00+00:00  84000
+          2022-01-24 00:00:00+00:00  73000
+          2022-02-07 00:00:00+00:00  41000
+          2022-02-14 00:00:00+00:00  97000
+...                                    ...
+PATIN     2022-04-04 00:00:00+00:00  62000
+          2022-04-11 00:00:00+00:00  12000
+          2022-04-18 00:00:00+00:00  85000
+          2022-04-25 00:00:00+00:00  79000
+          2022-05-23 00:00:00+00:00  56000
+
+[118 rows x 1 columns]
 ```
 
 ### Get Most Records Column Data
-You can get most records column data using `get-most-records` and it will show a prompt to user to input the column name.
+You can get most records column data using `get-most-records` and it will show you a table with most value based on commodity.
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-most-records --help
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-most-records --help
 Usage: main.py pranala get-most-records [OPTIONS]
 
-  get most records by commodity column
+  get most records by commodity
 
 Options:
-  --by TEXT  [required]
-  --help     Show this message and exit.
+  --help  Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\case> python .\main.py pranala get-most-records
-By: komoditas
-  GURAME    NILA HITAM    LELE    BAWAL    BANDENG    NILA MERAH    MAS    PATIN    None    Komoditas    Sss
---------  ------------  ------  -------  ---------  ------------  -----  -------  ------  -----------  -----
-      29            23      23       26         43            17     28       29       1            1     41
+(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-most-records
+BANDENG       43
+GURAME        29
+PATIN         29
+BAWAL         28
+MAS           28
+NILA HITAM    23
+LELE          23
+NILA MERAH    17
+Name: komoditas, dtype: int64
 ```
 
 ## Documentation Functions
 
 ### Get Function
-On get function, it uses requests_cache to cache the response into sqlite and if the response is ok then it will show the data.
+On get function, it uses `session` from `requests_cache` to cache the response into sqlite.
+
+When `params` is exists it will pass it into `session.get` parameter. Then proceed to display the result.
+
 ```python
-    @staticmethod
-    def get(params=None, context=None, c_value=None):
-        """
-        get the response with/o params
-        """
-        session = CachedSession(
-            'pranala_cache',
-            use_cache_dir=True,  # Save files in the default user cache dir
-            cache_control=True,  # Use Cache-Control headers for expiration, if available
-            expire_after=timedelta(days=1),  # Otherwise expire responses after one day
-            allowable_methods=['GET', 'POST'],  # Cache POST requests to avoid sending the same data twice
-            allowable_codes=[200, 400],  # Cache 400 responses as a solemn reminder of your failures
-            ignored_parameters=['api_key'],  # Don't match this param or save it in the cache
-            match_headers=True,  # Match all request headers
-            stale_if_error=True,  # In case of request errors, use stale cache data if possible
-        )
-        if params is not None:
-            params = {'search': json.dumps(params)}
-        response = session.get(url, params=params) # call response cache
-        get_response(response, context, c_value) # normalized responses
+@staticmethod
+def get(params=None, context=None, c_value=None):
+    """
+    get the response with/o params
+    """
+    if params is not None:
+        params = {'search': json.dumps(params)}
+    response = session.get(url_list, params=params)
+    get_response(response, context, c_value)
 ```
+
 When the response is ok then we need to check if the response data is exists. After that we need to check is the response coming from `context is not None`.
+
+To display the result of the response, we need to convert it into table, so user can see the data.
+
+`context` is needed to only desired result and not using tabulate to display the data.
+
+`c_value` also is needed when context exists.
 
 ```python
 def get_response(res, context=None, c_value=None):
@@ -399,11 +404,16 @@ def get_response(res, context=None, c_value=None):
         dataset = json.loads(res.text)
         if dataset:
             if context == 'get_max_price':
-                dataset = sorted(dataset, key=lambda d: d['price'], reverse=True)
+                df = pd.DataFrame(dataset, columns=dataset[0].keys())
+                df['tgl_parsed'] = pd.to_datetime(df['tgl_parsed']) - pd.to_timedelta(7, unit='d')
+                df = df.groupby(['komoditas', pd.Grouper(key='tgl_parsed', freq='W-MON')]).agg(price = ('price' , 'max')).round()
+                print (df)
+                return False
             elif context == 'get_most_records':
-                receivers = [d[c_value] for d in dataset]
-                counter = [dict(Counter(receivers))]
-                dataset = sorted(counter, key=lambda d: d, reverse=True)
+                df = pd.DataFrame(dataset, columns=dataset[0].keys())
+                result = df['komoditas'].value_counts()
+                print (result)
+                return False
             elif context == 'get_aggregation_price':
                 dataset[:] = [d for d in dataset if str(d.get('price')).isdigit()]
                 df = pd.DataFrame(dataset, columns=dataset[0].keys())
@@ -412,10 +422,31 @@ def get_response(res, context=None, c_value=None):
                 return False
             elif context == 'get_by_range_price':
                 dataset[:] = [d for d in dataset if str(d.get('price')).isdigit() and c_value[0] <= int(d.get('price')) <= c_value[1]]
+            elif context == 'get_all_by_range':
+                df = pd.DataFrame(dataset, columns=dataset[0].keys())
+
+                date_one = datetime.datetime.strptime(c_value[2][0], '%Y-%m-%d').date()
+                date_two = datetime.datetime.strptime(c_value[2][1], '%Y-%m-%d').date()
+
+                df['tgl_parsed'] = pd.to_datetime(df['tgl_parsed']).dt.date
+
+                result = df.loc[
+                        (df['price'].isin(c_value[0])) &
+                        (df['size'].isin(c_value[1])) &
+                        ((df['tgl_parsed'] > date_one) & (df['tgl_parsed'] < date_two) )
+                ]
+                if not result.empty:
+                    print(result)
+                else:
+                    print('data not found')
+                return False
 
             c = CurrencyConverter()
             rows = []
-            for x in dataset:
+            for idx, x in enumerate(dataset):
+                if idx > 9:
+                    break
+                x['no'] = idx + 1
                 if context != 'get_most_records':
                     x['price_in_usd'] = (c.convert(x.get('price'), 'IDR', 'USD'))
                 rows.append(x.values())
@@ -427,34 +458,53 @@ def get_response(res, context=None, c_value=None):
         print('server error')
 ```
 
-If the `context` is from `get_max_price` then it will sort the price and the data is already filtered on the requests. And it will print the dataset with tabulate function.
+When the `context` is `get_max_price`, dataset is filled with all the list of data from `session.get()`.
+Then put it in dataframe from pandas including with keys / headers.
+And parse the column `tgl_parsed` with datetime type so we can calculate with datetime type data.
+The result will grouped within the lists column of `komoditas`, calculated `tgl_parsed` and max data of `price`
+
 ```python
 if context == 'get_max_price':
-    dataset = sorted(dataset, key=lambda d: d['price'], reverse=True)
-```
-
-If the `context` is from `get_most_records` then it will count the common values of each list in dictionaries. And it will print the dataset with tabulate function.
-```python
-elif context == 'get_most_records':
-    receivers = [d[c_value] for d in dataset]
-    counter = [dict(Counter(receivers))]
-    dataset = sorted(counter, key=lambda d: d, reverse=True)
-```
-
-If the `context` is from `get_aggregation_price` then it will call pandas to get aggregation functions and using data frame to show the result. And we need to return False because we don't want to call the dataset print function below.
-```python
-elif context == 'get_aggregation_price':
-    dataset[:] = [d for d in dataset if str(d.get('price')).isdigit()]
     df = pd.DataFrame(dataset, columns=dataset[0].keys())
-    result = df.groupby(c_value).agg({"price": ['min', 'max']})
-    print(result)
+    df['tgl_parsed'] = pd.to_datetime(df['tgl_parsed']) - pd.to_timedelta(7, unit='d')
+    df = df.groupby(['komoditas', pd.Grouper(key='tgl_parsed', freq='W-MON')]).agg(price = ('price' , 'max')).round()
+    print (df)
     return False
 ```
 
-If the `context` is from `get_by_range_price` then it will check is price is string with numbers and the price is within the range.
+When the `context` is `get_most_records` the data will be display using `dataframe` from `pandas` and calculate using `value_counts` to count all the value based on desired column.
+
 ```python
-elif context == 'get_aggregation_price':
-    dataset[:] = [d for d in dataset if str(d.get('price')).isdigit() and c_value[0] <= int(d.get('price')) <= c_value[1]]
+elif context == 'get_most_records':
+    df = pd.DataFrame(dataset, columns=dataset[0].keys())
+    result = df['komoditas'].value_counts()
+    print (result)
+    return False
+```
+
+When the `context` is `get_by_range_price` the goals is to display the data based on range data.
+
+`c_value` is inputted user data. And we need to convert the date into datetime type, so it can be check using dataframe.
+
+```python
+elif context == 'get_all_by_range':
+    df = pd.DataFrame(dataset, columns=dataset[0].keys())
+
+    date_one = datetime.datetime.strptime(c_value[2][0], '%Y-%m-%d').date()
+    date_two = datetime.datetime.strptime(c_value[2][1], '%Y-%m-%d').date()
+
+    df['tgl_parsed'] = pd.to_datetime(df['tgl_parsed']).dt.date
+
+    result = df.loc[
+            (df['price'].isin(c_value[0])) &
+            (df['size'].isin(c_value[1])) &
+            ((df['tgl_parsed'] > date_one) & (df['tgl_parsed'] < date_two) )
+    ]
+    if not result.empty:
+        print(result)
+    else:
+        print('data not found')
+    return False
 ```
 
 ### Currecy Converter
