@@ -85,7 +85,7 @@ Commands:
 ### Add a record
 You can add a record using `add-records` and then it will show prompt. You can use `--help` arguments to see requirements input.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala add-records --help
+(py8) PS C:\case> python .\main.py pranala add-records --help
 Usage: main.py pranala add-records [OPTIONS]
 
   Add a record
@@ -99,7 +99,7 @@ Options:
   --help            Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala add-records
+(py8) PS C:\case> python .\main.py pranala add-records
 Commodity: gurame
 Province: jawa tengah
 City: cilacap
@@ -111,7 +111,7 @@ data successfully created
 ### Update a record
 You can update a record using `update-records` and you need to use `--condition condition1=value1,condition2=value2 --set-value column1=value1,column2=value2` in order to update the data.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala update-records --help
+(py8) PS C:\case> python .\main.py pranala update-records --help
 Usage: main.py pranala update-records [OPTIONS]
 
   Update records with condition and value. Example: --condition
@@ -124,7 +124,7 @@ Options:
   --help            Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala update-records --condition uuid=13806864-4557-42d4-926c-050e4d54d671 --set-value size=170
+(py8) PS C:\case> python .\main.py pranala update-records --condition uuid=13806864-4557-42d4-926c-050e4d54d671 --set-value size=170
 condition:  {'uuid': '13806864-4557-42d4-926c-050e4d54d671'}
 set_value:  {'size': '170'}
 date successfully updated
@@ -187,7 +187,7 @@ PATIN        1000  98000
 ### Get All Data Based On Specified Commodity
 You can get all data based on specified commodity using `get-all-by-commodity` and it will show a prompt to user to input the value of commodity.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-commodity --help
+(py8) PS C:\case> python .\main.py pranala get-all-by-commodity --help
 Usage: main.py pranala get-all-by-commodity [OPTIONS]
 
   get by commodity
@@ -197,7 +197,7 @@ Options:
   --help            Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-commodity
+(py8) PS C:\case> python .\main.py pranala get-all-by-commodity
 Komoditas: gurame
 uuid                                  komoditas    area_provinsi     area_kota      size    price  tgl_parsed                timestamp    no    price_in_usd
 ------------------------------------  -----------  ----------------  -----------  ------  -------  --------------------  -------------  ----  --------------
@@ -218,7 +218,7 @@ You can get all data based on specified range of price, size and date using `get
 
 All data must be present and must follow the given format
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-range --help
+(py8) PS C:\case> python .\main.py pranala get-all-by-range --help
 Usage: main.py pranala get-all-by-range [OPTIONS]
 
   get all by range harga, size and tanggal
@@ -230,7 +230,7 @@ Options:
   --help                Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-all-by-range
+(py8) PS C:\case> python .\main.py pranala get-all-by-range
 Please input range price (from,to). Ex. 2000,5000: 2,50000
 Please input range size based on option size (from,to). Ex. 30,50: 30,170
 Please input range date yyyy-mm-dd (from,to). Ex. 2020-11-02,2022-11-02: 2020-11-02,2022-11-02
@@ -241,7 +241,7 @@ Please input range date yyyy-mm-dd (from,to). Ex. 2020-11-02,2022-11-02: 2020-11
 ### Get Data Based On Specified Area
 You can get data based on specified area province and city using `get-by-area` and it will show a prompt to user to input the province and city.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-area --help
+(py8) PS C:\case> python .\main.py pranala get-by-area --help
 Usage: main.py pranala get-by-area [OPTIONS]
 
   get by area province and city
@@ -252,7 +252,7 @@ Options:
   --help           Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-area
+(py8) PS C:\case> python .\main.py pranala get-by-area
 Province: jawa tengah
 City: cilacap
 uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    no    price_in_usd
@@ -271,7 +271,7 @@ f2012153-75ef-48e5-b40d-b60762771e4b  BAWAL        JAWA TENGAH      CILACAP     
 ### Get Data Based On Specified Id
 You can get data based on specified id using `get-by-id` and it will show a prompt to user to input the id.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-id --help
+(py8) PS C:\case> python .\main.py pranala get-by-id --help
 Usage: main.py pranala get-by-id [OPTIONS]
 
   get by uuid
@@ -281,7 +281,7 @@ Options:
   --help       Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-by-id
+(py8) PS C:\case> python .\main.py pranala get-by-id
 Uuid: 2c75f19f-ac7a-4c28-9459-8fbb64c8cb00
 uuid                                  komoditas    area_provinsi    area_kota      size    price  tgl_parsed                timestamp    no    price_in_usd
 ------------------------------------  -----------  ---------------  -----------  ------  -------  --------------------  -------------  ----  --------------
@@ -320,7 +320,7 @@ bf766e07-b9d5-44d2-bede-c3ad13a9e246  BAWAL        BANTEN            PANDEGLANG 
 ### Get Max Price Data By Week And By Commodity
 You can get max price data using `get-max-price` and it will show data filtered based by week and get the max price of each weeks.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-max-price --help
+(py8) PS C:\case> python .\main.py pranala get-max-price --help
 Usage: main.py pranala get-max-price [OPTIONS]
 
   get max price by week and commodity
@@ -329,7 +329,7 @@ Options:
   --help  Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-max-price
+(py8) PS C:\case> python .\main.py pranala get-max-price
                                      price
 komoditas tgl_parsed
 BANDENG   2022-01-03 00:00:00+00:00  91000
@@ -350,7 +350,7 @@ PATIN     2022-04-04 00:00:00+00:00  62000
 ### Get Most Records Column Data
 You can get most records column data using `get-most-records` and it will show you a table with most value based on commodity.
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-most-records --help
+(py8) PS C:\case> python .\main.py pranala get-most-records --help
 Usage: main.py pranala get-most-records [OPTIONS]
 
   get most records by commodity
@@ -359,7 +359,7 @@ Options:
   --help  Show this message and exit.
 ```
 ```commandline
-(py8) PS C:\laragon\www\efishery-test-case> python .\main.py pranala get-most-records
+(py8) PS C:\case> python .\main.py pranala get-most-records
 BANDENG       43
 GURAME        29
 PATIN         29
