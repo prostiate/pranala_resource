@@ -31,35 +31,18 @@ def validate_tanggal(date):
         datetime_object = datetime.datetime.strptime(datetime_str, '%Y-%m-%d').date()
         return str(datetime_object)
     except ValueError:
-        raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+        return False
 
 
-def normalized_condition(condition):
+def normalized_input(input):
     try:
-        rcondition = {}
-        for x in condition:
+        rinput = {}
+        for x in input:
             cdata = x.split(',')
             for y in cdata:
                 rdata = y.split('=')
-                rcondition[rdata[0]] = rdata[1]
-        return rcondition
-    except IndexError:
-        return False
-    except ValueError:
-        return False
-    except TypeError:
-        return False
-
-
-def normalized_set_value(set_value):
-    try:
-        rset_value = {}
-        for x in set_value:
-            cdata = x.split(',')
-            for y in cdata:
-                rdata = y.split('=')
-                rset_value[rdata[0]] = rdata[1]
-        return rset_value
+                rinput[rdata[0]] = rdata[1]
+        return rinput
     except IndexError:
         return False
     except ValueError:
